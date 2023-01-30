@@ -17,10 +17,10 @@ $urlBase = $urlBase . $parametros;
 echo ('<a href="'.$urlBase.'">Chamando arquivo.php</a><br>');
 
 //######################################################################
-$urlBase = 'http://localhost/CursoPHPSenac/Aula-30-01-2023/sting.php';
+$urlBase = 'http://localhost/CursoPHPSenac/Aula-30-01-2023/string.php';
 
 $palavra = "arara";
-$parametros = "?palavra =" . $palavra;
+$parametros = "?palavra=" . $palavra;
 //junta os parametros mo url base
 $urlBase = $urlBase . $parametros;
 echo ('<a href="'.$urlBase.'">Chamando arquivo string</a>');
