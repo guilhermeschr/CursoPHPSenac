@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário:</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        input,select{
+            margin-bottom: 15px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulário para estudar IFC:</h1>
+    <form action="exercicio02.php" method="post">
+        <label for="sEmailCantidato">Endereço de e-mail:*</label><br>
+        <input type="text" name="sEmailCantidato" id="sEmailCantidato"><br>
+        <label for="sNomeCantidato">Seu nome:*</label><br>
+        <input type="text" name="sNomeCantidato" id="sNomeCantidato"><br>
+        <label for="sCidadeCandidato">Sua cidade:*</label><br>
+        <input type="text" name="sCidadeCandidato" id="sCidadeCandidato"><br>
+        <label for="sTelefoneCandidato">Seu telefone:*</label><br>
+        <input type="text" name="sTelefoneCandidato" id="sTelefoneCandidato"><br>
+        <label for="sCursoInterrese">Tenho interesse no(s) seguinte(s) curso(s)*</label><br>
+        <select name="sCursoInterrese" id="sCursoInterrese">
+            <option value="">Engenharia Mecatrônica</option>
+            <option value="">Ciência da Computação</option>
+            <option value="">Agronomia</option>
+            <option value="">Licenciatura em Matemática</option>
+            <option value="">Licenciatura em Física</option>
+        </select>
+        <br>
+        <input type="submit" value="Enviar">
+    </form>
+    
+</body>
+</html>
