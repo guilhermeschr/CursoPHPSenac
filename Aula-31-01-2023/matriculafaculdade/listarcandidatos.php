@@ -1,6 +1,6 @@
 <?php
 
-echo 'listando os candidatos inscritos nas vagas de emprego...';
+echo 'listando os candidatos inscritos IPM...';
 
 $arquivo = "listacandidatos.json";
 if(file_exists($arquivo)) {
