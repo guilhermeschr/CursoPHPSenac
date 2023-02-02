@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário:</title>
+    <style>
+        *{
+            /* text-align: center; */
+            margin: 0;
+            padding: 0;
+
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        input,select{
+            margin-bottom: 15px;
+            margin-top: 5px;
+        }
+        fieldset{
+            display: flex;
+            flex-direction: column;
+            padding: 50px;
+            width: 50%;
+            border-radius: 15px;
+        }
+        .obrigatorio{
+            color: red;
+        }
+        li{
+            list-style: none;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Formulário para se candidatar no IFC:</h1>
+    <form action="gravarinscricao.php" method="get">
+        
+        <fieldset>
+            <legend>Formulário:</legend>
+            <label for="email">Endereço de e-mail: <span class="obrigatorio">*</span></label>
+            <input type="text" name="email" id="email"><br>
+            <label for="nome">Seu nome:<span class="obrigatorio">*</span></label>
+            <input type="text" name="nome" id="nome"><br>
+            <label for="cidade">Sua cidade:<span class="obrigatorio">*</span></label>
+            <input type="text" name="cidade" id="cidade"><br>
+            <label for="telefone">Seu telefone:<span class="obrigatorio">*</span></label>
+            <input type="text" name="telefone" id="telefone"><br>
+            <span>Tenho interesse no(s) seguinte(s) curso(s)<span class="obrigatorio">*</span></span><br>
+            
+            <ul>
+                <li><input type="checkbox" name="1" id="">Engenharia Mecatrônica<br></li>
+                <li><input type="checkbox" name="2" id="">Ciência da Computação<br></li>
+                <li><input type="checkbox" name="3" id="">Agronomia<br></li>
+                <li><input type="checkbox" name="4" id="">Licenciatura em Matemática<br></li>
+                <li><input type="checkbox" name="5" id="">Licenciatura em Física<br></li>
+                <li><input type="checkbox" name="6" id="">Outros: <input type="text" name="outros"></li>
+            </ul>
+    
+            <br>
+            <input type="submit" value="Enviar">
+        </fieldset>
+    </form>
+    
+</body>
+</html>
+
+<!-- 
+$opcao_curso = isset($_GET["1"]) ? $_GET["1"] : 0;  
+$opcao_curso = isset($_GET["2"]) ? $_GET["2"] : 0;  
+$opcao_curso = isset($_GET["3"]) ? $_GET["3"] : 0;  
+$opcao_curso = isset($_GET["4"]) ? $_GET["4"] : 0;  
+$opcao_curso = isset($_GET["5"]) ? $_GET["5"] : 0;  
+$opcao_curso = isset($_GET["6"]) ? $_GET["6"] : 0;    -->
