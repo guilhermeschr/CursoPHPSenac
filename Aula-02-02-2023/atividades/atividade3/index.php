@@ -1,18 +1,58 @@
 <?php
 
-// Criar uma classe chamada Clientes, 
-// <br> esta classe deve conter os seguintes atributos e métodos: 
-// <br> Atributos: nom, email e telefone 
-// <br> Métodos: exibir(); O método exibir deve exibir na tela todos os dados do cliente.
+    require_once('class/classCliente.php');
+    require_once('class/classPessoaJuridica.php');
+    require_once('class/classPessoaFisica.php');
 
+    require_once('Exercicio03.php');
+    
+    echo '<br>';
+    $oPedro = new Cliente();
 
-// <br> a) Crie um objeto da classe Clientes.
-// <br> b) Atribua valores aos atributos da classe: $cliente->nome = “Aluno da Silva”;
-// <br> c) Crie mais um objeto da classe Clientes
-// <br> d) Chame o método exibir dos dois objetos e veja o resultado.
-// <br> e) Crie uma classe chamada ClienteFisica que estenda a classe Clientes. Adicione nesta classe o atributo $cpf;
-// <br> f) Crie uma classe chamada ClienteJuridica que estenda a classe Clientes. Adicione nesta classe o atributo $cnpj;
-// <br> g) Crie nas duas classes o seguinte método: getPessoa(). 
-// Este método deve retornar o CPF no caso de pessoa física ou CNPJ no caso de pessoa jurídica;
-// <br><br><br><br>
-// Ao final entregar no github de cada um.
+    $oPedro->setNome('Pedro');
+    $oPedro->setEmail('pedro@gmail.com');
+    $oPedro->setTelefone('(47)99573-3162');
+
+    echo $oPedro->exibir();
+    echo '<br>';
+   
+    
+    $oSenac = new PessoaJuridica();
+    
+    $oSenac->setNome('Senac');
+    $oSenac->setEmail('senac@gmail.com');
+    $oSenac->setTelefone('(47)99472-8662');
+    $oSenac->setCnpj('21.428.415/0001-30');
+    
+    echo $oSenac->exibir();
+    echo '<br>';
+    echo $oSenac->getPessoa();
+    
+
+    echo '<br>';
+    $oJoao = new PessoaFisica();
+    
+    $oJoao->setNome('João');
+    $oJoao->setEmail('joaonhizo@gmail.com');
+    $oJoao->setTelefone('(47)99271-6462');
+    $oJoao->setCpf('210.428.415-45');
+    
+    echo $oJoao->exibir();
+    echo '<br>';
+    echo $oJoao->getPessoa();
+    
+    
+    echo '<br>';
+    $oLuiz = new PessoaFisica();
+    
+    $oLuiz->setNome('Luiz');
+    $oLuiz->setEmail('luiz@outlook.com');
+    $oLuiz->setTelefone('(48)99564-2564');
+    $oLuiz->setCpf('145.248.525-43');
+    
+    echo $oLuiz->exibir();
+    echo '<br>';
+    echo $oLuiz->getPessoa();
+    
+    
+    ?>
