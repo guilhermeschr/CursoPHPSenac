@@ -40,14 +40,15 @@ $enunciado = 'Criar uma classe chamada ContaBancaria,
         <br>Telefone:<b>(47)98845-4477</b>
         <br>CPF/CNPJ:<b>061.015.147-55</b>
         <br>
-        <img src="formato_extrato.png" alt="" width="500" height="200">
+        
      </li> 
     </ul>
 
 Deve conter os dados de pelo menos 3 clientes, assim como foi feito com as classes carro
         
-<br><br><br><br>
+<br><br>
 Ao final entregar no github de cada um.
+<br><br><br><br>
 ';
 
 // MOSTRAR COMO DECLARAR UMA CLASSE COMO ATRIBUTO DE OUTRA CLASSE...
