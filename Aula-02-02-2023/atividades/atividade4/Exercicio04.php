@@ -51,8 +51,6 @@ Ao final entregar no github de cada um.
 <br><br><br><br>
 ';
 
-// MOSTRAR COMO DECLARAR UMA CLASSE COMO ATRIBUTO DE OUTRA CLASSE...
-// EXEMPLO DA CLASSE CLIENTE
 echo $enunciado;
 
 
