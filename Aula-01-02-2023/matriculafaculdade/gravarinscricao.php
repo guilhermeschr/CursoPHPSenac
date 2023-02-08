@@ -24,7 +24,7 @@ function grava_ficha_inscricao() {
         mostra_mensagem_candidato();
 
     } else {
-        echo 'Já existe um candidato inscrito com este e-mail!';
+        echo 'Já existe um candidato inscrito com este E-mail!';
     }
 }
 
