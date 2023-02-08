@@ -5,17 +5,17 @@ function grava_ficha_inscricao() {
 
     $lista_inscritos = array();
     if(file_exists($arquivo)){
-
+        
         $lista_inscritos = file_get_contents($arquivo);
 
-
+        //                 decodifica
         $lista_inscritos = json_decode($lista_inscritos, true);
     }
 
     if(validaCandidatoJaInscrito($lista_inscritos)){
-       
+       // coloca incrito no array
         $lista_inscritos[] = getDadosCandidato();
-
+        //
         $lista_inscritos_json = json_encode($lista_inscritos);
 
         file_put_contents($arquivo, $lista_inscritos_json);
