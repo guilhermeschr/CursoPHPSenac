@@ -24,13 +24,10 @@ function listar_inscritos() {
 
     $arquivo = "listainscritos.json";
     if (file_exists($arquivo)) {
-        // Se existe, adiciona mais candidatos na lista
         $lista_candidatos = file_get_contents($arquivo);
 
-        // Adicionar o novo candidato na lista de dados existente
         $lista_candidatos = json_decode($lista_candidatos, true);
 
-        // Colocando os dados numa tabela
         $html_tabela = getCabecalhoTabela();
 
         $html_linhas_tabela = "";
