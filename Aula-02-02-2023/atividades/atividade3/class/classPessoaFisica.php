@@ -4,8 +4,7 @@ class PessoaFisica extends Cliente{
 
     private $cpf;
 
-    public function setCpf($cpf)
-    {
+    public function setCpf($cpf){
         $this->cpf = $cpf;
     }
 

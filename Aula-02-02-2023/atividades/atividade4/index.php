@@ -3,6 +3,10 @@
 require_once('class/classContaBancaria.php');
 require_once('Exercicio04.php');
 
+// $oCliente = new Cliente('Pedro','pedrinho@gmail.com','(48) 99534-3564','245.844.023-42');
+
+// $oContaBancaria = new ContaBancaria('$oCliente');
+
 $oClaudio = new ContaBancaria('Claudio');
 
 $oClaudio->setDataCriacao('01/02/2023');

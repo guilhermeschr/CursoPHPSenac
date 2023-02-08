@@ -1,17 +1,19 @@
 <?php
 
-class Cliente {
+require_once('class/classCliente.php');
 
-    public $nome;
+// class Cliente {
 
-    public function getNome(){
-        return $this->nome;
-    }
+//     public $nome;
 
-    public function setNome($nome){
-        $this->nome = $nome;
-    }
-}
+//     public function getNome(){
+//         return $this->nome;
+//     }
+
+//     public function setNome($nome){
+//         $this->nome = $nome;
+//     }
+// }
 
 class ContaBancaria {
 
