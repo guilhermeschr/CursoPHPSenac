@@ -1,17 +1,32 @@
 <?php
 
-echo '<h1>Aula-09/02/2023</h1>';
+$enunciado = 'Criar uma consulta de clientes igual a que acabamos de fazer.
+<br>
+    Para isso, no arquivo "conexao.php", adicione antes do "return $pdo", o trecho de codigo abaixo:<br>
+<code>
+    <i>
+        $query = "CREATE TABLE IF NOT EXISTS cliente (cliente_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, nome TEXT, telefone TEXT, email TEXT, cidade TEXT)";
+        <br>
+        $this->pdoConection->exec($query);
+    </i>
+</code>
+<br><br>
+';
+
+echo $enunciado;
+
 require_once('conexao.php');
 
 function getDados(){
     $pdo = getConexao();
 
-    $query = "SELECT * FROM `contato`";
+    $query = "SELECT * FROM `cliente`";
 
     $stmt = $pdo->prepare($query);
 
     $stmt->execute();
 
+    $aDados = [];
     while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
         $aDados[]= $result;
     }
@@ -28,24 +43,20 @@ function getColunasTabela(){
     if(count($aDados)){
 
         foreach($aDados as $aContatos){
-
-            $contato_id = $aContatos["contato_id"];
+            
+            $cliente_id = $aContatos["cliente_id"];
             $nome       = $aContatos["nome"];
-            $sobrenome  = $aContatos["sobrenome"];
-            $endereco   = $aContatos["endereco"];
             $telefone   = $aContatos["telefone"];
             $email      = $aContatos["email"];
-            $nascimento = $aContatos["nascimento"];
+            $cidade      = $aContatos["cidade"];
 
             $htmlColunasTabela .= '<tr>';
 
-            $htmlColunasTabela .= "<td>$contato_id</td>";
+            $htmlColunasTabela .= "<td>$cliente_id</td>";
             $htmlColunasTabela .= "<td>$nome</td>";
-            $htmlColunasTabela .= "<td>$sobrenome</td>";
-            $htmlColunasTabela .= "<td>$endereco</td>";
             $htmlColunasTabela .= "<td>$telefone</td>";
             $htmlColunasTabela .= "<td>$email</td>";
-            $htmlColunasTabela .= "<td>$nascimento</td>";
+            $htmlColunasTabela .= "<td>$cidade</td>";
 
             $htmlColunasTabela .= '</tr>';
 
@@ -53,7 +64,7 @@ function getColunasTabela(){
 
         
     }else{
-        $htmlColunasTabela .= '<tr><td conspan="7"></td></tr>';
+        $htmlColunasTabela .= '<tr><td conspan="5"></td></tr>';
     }
     
 
@@ -71,11 +82,9 @@ function carregaContatos(){
 
     $htmlTabela .= '<th>Id</th>';
     $htmlTabela .= '<th>Nome</th>';
-    $htmlTabela .= '<th>Sobrenome</th>';
-    $htmlTabela .= '<th>Endereço</th>';
     $htmlTabela .= '<th>Telefone</th>';
     $htmlTabela .= '<th>E-mail</th>';
-    $htmlTabela .= '<th>Nascimento</th>';
+    $htmlTabela .= '<th>Cidade</th>';
 
 
     $htmlTabela .= '</tr>';
@@ -94,6 +103,5 @@ function carregaContatos(){
 
     echo $htmlTabela;
 }
-//Lista de Contados em HTML com os daods do banco de dados(tabela HTML) 
+
 carregaContatos();
-?>
