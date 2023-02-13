@@ -57,6 +57,19 @@ function getDadosFromBancoDados($cliente_id = false){
     return $aDados;
 }
 
+
+function buscaDadosAlteracao(){
+    $registro = json_decode($_POST["cliente"], true);
+    
+    $cliente_id = $registro["cliente_id"];
+    
+    $aDados = getDadosFromBancoDados($cliente_id);
+    
+    echo json_encode($aDados);
+}
+
+
+
 if (isset($_POST["acao"])) {
     $acao = $_POST["acao"];
 

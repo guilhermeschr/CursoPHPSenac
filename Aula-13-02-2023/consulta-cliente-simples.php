@@ -188,6 +188,8 @@ function carregaClientes(){
 
     $html_tabela .= "</table>";
 
+    // $html_tabela .= getModalClientes();
+
     echo $html_tabela;
 }
 
