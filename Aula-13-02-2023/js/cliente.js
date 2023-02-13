@@ -5,7 +5,7 @@ function editarCliente(cliente_id) {
 function excluirCliente(cliente_id){
     console.log('Cliente id:' + cliente_id);
     const cliente = {
-        id: cliente_id
+        cliente_id: cliente_id
     };
 
     loadAjaxUpdateRegistro(cliente, "EXECUTA_EXCLUSAO");
@@ -17,7 +17,7 @@ function loadAjaxUpdateRegistro (oDados, acao){
                   "acao" : acao};
 
     $.ajax({
-        url:"ajax_contato_aula.php",
+        url:"ajax_cliente_aula.php",
         type:"POST",
         async:true,
         data: oDados,
@@ -74,7 +74,7 @@ const createRow = (cliente, index) => {
             <button type="button" class="button green" onclick="editarCliente(${cliente.cliente_id})">Editar</button>
         </td>
         <td>
-            <button type="button" class="button red" onclick="excluirClienet(${cliente.cliente_id})">Excluir</button>
+            <button type="button" class="button red" onclick="excluirCliente(${cliente.cliente_id})">Excluir</button>
         </td>
     `;
     document.querySelector('#tableDados>tbody').appendChild(newRow);

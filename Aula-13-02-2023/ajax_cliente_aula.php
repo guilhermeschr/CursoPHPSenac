@@ -23,7 +23,39 @@ function executaExclusao(){
     $pdo = null;
 }
 
+function executaConsulta(){
+    $aDados = getDadosFromBancoDados();
+    
+    echo json_encode($aDados);
+}
 
+function getDadosFromBancoDados($cliente_id = false){
+    /** @var PDO $pdo */
+    $pdo = getConexao();
+
+    $query = "SELECT * FROM `cliente`";
+    if($cliente_id){
+        $query = "SELECT * FROM `cliente` WHERE cliente_id = $cliente_id";
+    }
+    
+    $stmt = $pdo->prepare($query);
+    
+    $stmt->execute();
+    
+    // percorrer os dados e coloca num array
+    $aDados = array();
+    while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
+        $aDados[] = $result;
+        if($cliente_id){
+            $aDados = $result;
+        }
+    }
+    
+    $stmt = null;
+    $pdo = null;
+    
+    return $aDados;
+}
 
 if (isset($_POST["acao"])) {
     $acao = $_POST["acao"];

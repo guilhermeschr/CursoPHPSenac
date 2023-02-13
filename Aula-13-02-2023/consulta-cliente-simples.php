@@ -150,7 +150,7 @@ function carregaClientes(){
     $html_tabela .= '<a href="executa_insert_clientes.php">Inserir Clientes</a>';
 
     // Lista de Contatos em HTML com os dados do banco de dados(tabela html)
-    $html_tabela .= "<table border='1'>";
+    $html_tabela .= "<table border='1' id=\"tableDados\">" ;
 
     $html_tabela .= "<caption><h1>Clientes</h1></caption>";
 
