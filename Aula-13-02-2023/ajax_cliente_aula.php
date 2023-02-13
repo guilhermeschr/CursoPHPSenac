@@ -1,31 +1,29 @@
 <?php
-require_once('conexao.php');
+require_once 'conexao.php';
 
-function executaExclusao(){
+function executaExclusao (){
     $registro = json_decode($_POST["cliente"], true);
 
-    $contato_id = $registro["cliente_id"];
-    
-    $query = "DELETE FROM `cliente` WHERE `cliente_id` = :cliente_id";
+    $cliente_id = $registro["cliente_id"];
 
-    // executa dados no banco de dados
+    $query = "DELETE FROM `cliente` WHERE `cliente_id` = :cliente_id";
 
     /** @var PDO $pdo */
     $pdo = getConexao();
 
     $stmt = $pdo->prepare($query);
-    
-    $stmt->bindParam(':cliente_id', $contato_id, PDO::PARAM_INT);
-    
+
+    $stmt->bindParam(':cliente_id', $cliente_id, PDO::PARAM_INT);
+
     $stmt->execute();
-    
+
     $stmt = null;
     $pdo = null;
 }
 
 function executaConsulta(){
     $aDados = getDadosFromBancoDados();
-    
+
     echo json_encode($aDados);
 }
 
@@ -37,12 +35,10 @@ function getDadosFromBancoDados($cliente_id = false){
     if($cliente_id){
         $query = "SELECT * FROM `cliente` WHERE cliente_id = $cliente_id";
     }
-    
+
     $stmt = $pdo->prepare($query);
-    
     $stmt->execute();
-    
-    // percorrer os dados e coloca num array
+
     $aDados = array();
     while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
         $aDados[] = $result;
@@ -50,25 +46,26 @@ function getDadosFromBancoDados($cliente_id = false){
             $aDados = $result;
         }
     }
-    
+
     $stmt = null;
     $pdo = null;
-    
+
     return $aDados;
 }
 
-
 function buscaDadosAlteracao(){
     $registro = json_decode($_POST["cliente"], true);
-    
+
     $cliente_id = $registro["cliente_id"];
-    
+
     $aDados = getDadosFromBancoDados($cliente_id);
-    
+
     echo json_encode($aDados);
 }
 
+function executaAlteracao(){
 
+}
 
 if (isset($_POST["acao"])) {
     $acao = $_POST["acao"];

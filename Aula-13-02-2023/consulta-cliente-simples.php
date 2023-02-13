@@ -40,8 +40,7 @@ echo "<hr>";
 
 require_once 'conexao.php';
 
-function getDados()
-{
+function getDados(){
     /** @var PDO $pdo */
     $pdo = getConexao();
 
@@ -60,8 +59,7 @@ function getDados()
     return $aDados;
 }
 
-function getColunasTabela()
-{
+function getColunasTabela(){
     $html_colunas_tabela = '';
 
     // busca os dados do banco de dados
@@ -111,17 +109,18 @@ function getAcoesCliente($cliente_id) {
     // 7 - Criar a programacao via php de inclusao de dados
 
     $html_acao = '<td>
-                        <button type="button" class="button green" onclick="editarCliente(' . $cliente_id . ')">Editar</button>
+                        <button type="button" class="button green" 
+                            onclick="editarCliente(' . $cliente_id . ')">Editar</button>
                    </td>
                    <td>
-                        <button type="button" class="button red" onclick="excluirCliente(' . $cliente_id . ')">Excluir</button>
+                        <button type="button" class="button red" 
+                            onclick="excluirCliente(' . $cliente_id . ')">Excluir</button>
                     </td>';
 
     return $html_acao;
 }
 
-function carregaCabecalho()
-{
+function carregaCabecalho() {
     $html = '<!DOCTYPE html>
             <html lang="pt-BR">
             
@@ -133,15 +132,51 @@ function carregaCabecalho()
                 <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,200;1,800&display=swap"
                       rel="stylesheet">
             
+                <!--ARQUIVOS CSS -->
                 <link rel="stylesheet" href="css/button.css">
+                <link rel="stylesheet" href="css/main.css">
+                <link rel="stylesheet" href="css/button.css">
+                <link rel="stylesheet" href="css/records.css">
+                <link rel="stylesheet" href="css/modal.css">
+                
+                <!--ARQUIVOS SCRIPT -->
                 <script src="js/jquery.min.js" defer></script>
                 <script src="js/cliente.js" defer></script>
             
-                <title>Clinte</title>
+                <title>Cliente</title>
             </head>
             <body>';
 
     return $html;
+}
+
+//    document.getElementById('id').value           = oCliente.cliente_id;
+//    document.getElementById('nome').value         = oCliente.nome;
+//    document.getElementById('telefone').value     = oCliente.telefone;
+//    document.getElementById('email').value        = oCliente.email;
+//    document.getElementById('cidade').value       = oCliente.cidade;
+
+function getModalClientes(){
+    return '<div class="modal" id="modal">
+            <div class="modal-content">
+                <header class="modal-header">
+                    <h2>Novo Cliente</h2>
+                    <span class="modal-close" id="modalClose">&#10006;</span>
+                </header>
+                <form id="form" class="modal-form">
+                    <input type="hidden" id="cliente_id" class="modal-field" placeholder="Id">
+                    
+                    <input type="text" id="nome" data-index="new" class="modal-field" placeholder="Nome do Cliente" required value="Joao">
+                    <input type="text" id="telefone" class="modal-field" placeholder="Telefone..." required value="(47)98854-7844">
+                    <input type="email" id="email" class="modal-field" placeholder="E-mail..." required value="joao@email.com">
+                    <input type="text" id="cidade" class="modal-field" placeholder="Cidade..." required value="Rio do Sul">
+                </form>
+                <footer class="modal-footer" id="modal-footer">
+                    <button id="salvar" class="button green">Salvar</button>
+                    <button id="cancelar" class="button blue">Cancelar</button>
+                </footer>
+            </div>
+        </div>';
 }
 
 function carregaClientes(){
@@ -150,7 +185,8 @@ function carregaClientes(){
     $html_tabela .= '<a href="executa_insert_clientes.php">Inserir Clientes</a>';
 
     // Lista de Contatos em HTML com os dados do banco de dados(tabela html)
-    $html_tabela .= "<table border='1' id=\"tableDados\">" ;
+    $html_tabela .= "<table border='1' id=\"tableDados\">";
+    //CONTINUAR DAQUI - FAZER A CONSULTA EM PHP
 
     $html_tabela .= "<caption><h1>Clientes</h1></caption>";
 
@@ -158,9 +194,9 @@ function carregaClientes(){
     // iniciando linha
     $html_tabela .= "    <tr>";
 
-    // $query = "CREATE TABLE IF NOT EXISTS cliente
+    //$query = "CREATE TABLE IF NOT EXISTS cliente
     // (
-    // cliente_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    //cliente_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     // nome TEXT,
     // telefone TEXT,
     // email TEXT,
@@ -188,7 +224,7 @@ function carregaClientes(){
 
     $html_tabela .= "</table>";
 
-    // $html_tabela .= getModalClientes();
+    $html_tabela .= getModalClientes();
 
     echo $html_tabela;
 }

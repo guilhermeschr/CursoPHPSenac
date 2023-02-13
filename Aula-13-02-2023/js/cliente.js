@@ -1,17 +1,19 @@
 function excluirCliente(cliente_id){
-    console.log('Cliente id:' + cliente_id);
+    console.log('cliente id:' + cliente_id);
+    
+	alert("Excluindo registro...");
+	
     const cliente = {
         cliente_id: cliente_id
     };
-
     loadAjaxUpdateRegistro(cliente, "EXECUTA_EXCLUSAO");
 }
 
 function loadAjaxUpdateRegistro (oDados, acao){
-
-    var oDados = {"cliente": JSON.stringify(oDados),
-                  "acao" : acao};
-
+    var oDados = {
+        "cliente": JSON.stringify(oDados),
+        "acao" : acao
+    };
     $.ajax({
         url:"ajax_cliente_aula.php",
         type:"POST",
@@ -53,13 +55,6 @@ const clearTable = () => {
 const createRow = (cliente, index) => {
     const newRow = document.createElement('tr');
 
-
-    // $cliente_id = $aContato["cliente_id"];
-    //         $nome       = $aContato["nome"];
-    //         $telefone   = $aContato["telefone"];
-    //         $email      = $aContato["email"];
-    //         $cidade     = $aContato["cidade"];
-
     newRow.innerHTML = `
         <td>${cliente.cliente_id}</td>
         <td>${cliente.nome}</td>
@@ -73,22 +68,22 @@ const createRow = (cliente, index) => {
             <button type="button" class="button red" onclick="excluirCliente(${cliente.cliente_id})">Excluir</button>
         </td>
     `;
+
     document.querySelector('#tableDados>tbody').appendChild(newRow);
 };
 
 
-function editarCliente(cliente_id) {
-    console.log('Cliente id:' + cliente_id);
-
-    // console.log("Buscando dados para alteracao do registro...");
+function editarCliente(cliente_id){
+    console.log('cliente id:' + cliente_id);
 
     const cliente = {
         cliente_id: cliente_id
     };
 
-    var oDados = {"cliente": JSON.stringify(cliente),
-                  "acao" : "BUSCA_DADOS_ALTERACAO"
-                };
+    var oDados = {
+        "cliente": JSON.stringify(cliente),
+        "acao" : "BUSCA_DADOS_ALTERACAO"
+    };
 
     $.ajax({
         url:"ajax_cliente_aula.php",
@@ -104,9 +99,7 @@ function editarCliente(cliente_id) {
 
             oCliente.id = oCliente.cliente_id;
 
-            // debugger;
-
-            carregaCampos(oContato);
+            carregaCampos(oCliente);
 
             // Abre o Modal
             openModal();
@@ -115,13 +108,11 @@ function editarCliente(cliente_id) {
 }
 
 const carregaCampos = (oCliente) => {
-    document.getElementById('id').value        = oCliente.cliente_id;
-    document.getElementById('nome').value      = oCliente.nome;
-    // document.getElementById('sobrenome').value = oContato.sobrenome;
-    // document.getElementById('endereco').value  = oContato.endereco;
-    document.getElementById('telefone').value  = oCliente.telefone;
-    document.getElementById('email').value     = oCliente.email;
-    document.getElementById('cidade').value= oCliente.cidade;
+    document.getElementById('cliente_id').value           = oCliente.cliente_id;
+    document.getElementById('nome').value         = oCliente.nome;
+    document.getElementById('telefone').value     = oCliente.telefone;
+    document.getElementById('email').value        = oCliente.email;
+    document.getElementById('cidade').value       = oCliente.cidade;
     document.getElementById('nome').dataset.index = oCliente.index;
 };
 
@@ -134,3 +125,48 @@ const closeModal = () => {
     //clearFields();
     document.getElementById('modal').classList.remove('active');
 };
+
+const updateDados = () => {
+    if (isValidFields()) {
+        const index = document.getElementById('nome').dataset.index;
+        if (index == 'new') {
+            const cliente = {
+                nome: document.getElementById('nome').value,
+                telefone: document.getElementById('telefone').value,
+                email: document.getElementById('email').value,
+                cidade: document.getElementById('cidade').value
+            };
+
+            loadAjaxUpdateRegistro(cliente, "EXECUTA_INCLUSAO");
+        } else {
+            const cliente = {
+                cliente_id:document.getElementById('cliente_id').value,
+                nome: document.getElementById('nome').value,
+                telefone: document.getElementById('telefone').value,
+                email: document.getElementById('email').value,
+                cidade: document.getElementById('cidade').value
+            };
+
+            loadAjaxUpdateRegistro(cliente, "EXECUTA_ALTERACAO");
+        }
+
+        closeModal();
+    }
+};
+
+const isValidFields = () => {
+    return document.getElementById('form').reportValidity()
+};
+
+
+// <SPAN onclick="testarDados()">TESTAR DADOS</SPAN>
+
+
+document.getElementById('salvar')
+    .addEventListener('click', updateDados);
+
+document.getElementById('cancelar')
+    .addEventListener('click', closeModal);
+
+document.getElementById('modalClose')
+    .addEventListener('click', closeModal);
