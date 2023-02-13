@@ -86,7 +86,7 @@ function getColunasTabela()
             $html_colunas_tabela .= "<td>$cidade</td>";
 
             // Adiciona as acoes da tabela
-            $html_colunas_tabela .= getAcoesContato($cliente_id);
+            $html_colunas_tabela .= getAcoesCliente($cliente_id);
 
             // finaliza linha
             $html_colunas_tabela .= "</tr>";
@@ -99,7 +99,7 @@ function getColunasTabela()
     return $html_colunas_tabela;
 }
 
-function getAcoesContato($contato_id) {
+function getAcoesCliente($cliente_id) {
     // Lista de alteracoes
     // 0 - Adicionar o header 'Ações'
     // 1 - Adicionar a classe css de botao 'button.css' com a pasta de css
@@ -111,10 +111,10 @@ function getAcoesContato($contato_id) {
     // 7 - Criar a programacao via php de inclusao de dados
 
     $html_acao = '<td>
-                        <button type="button" class="button green" onclick="editarContato(' . $contato_id . ')">Editar</button>
+                        <button type="button" class="button green" onclick="editarCliente(' . $cliente_id . ')">Editar</button>
                    </td>
                    <td>
-                        <button type="button" class="button red" onclick="excluirContato(' . $contato_id . ')">Excluir</button>
+                        <button type="button" class="button red" onclick="excluirCliente(' . $cliente_id . ')">Excluir</button>
                     </td>';
 
     return $html_acao;
@@ -144,7 +144,7 @@ function carregaCabecalho()
     return $html;
 }
 
-function carregaContatos(){
+function carregaClientes(){
     $html_tabela = carregaCabecalho();
 
     $html_tabela .= '<a href="executa_insert_clientes.php">Inserir Clientes</a>';
@@ -191,4 +191,4 @@ function carregaContatos(){
     echo $html_tabela;
 }
 
-carregaContatos();
+carregaClientes();
