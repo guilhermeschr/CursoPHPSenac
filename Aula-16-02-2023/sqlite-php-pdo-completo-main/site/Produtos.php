@@ -21,82 +21,52 @@ class Produtos extends WebSitePadrao {
                         <link rel="stylesheet" href="css/produto.css">
                         <!-- Boxicons CDN Link -->
                         <link href=\'https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css\' rel=\'stylesheet\'>
-                        
                         <div class="body-produto">';
     
         $html .= '<style>
                         main {
                             width: 100%;
-                        }
-                        
+                        }                        
                         #adicionarCarrinho:hover{
                             cursor: pointer;
                         }
                     </style>';
 
-        // usar caroussel para mudar lista de produto por linha em bootstrapp
-        // https://getbootstrap.com.br/docs/4.1/components/carousel/
-        
-        // $aListaProduto = array(1,2,3,4);
-        
         $aListaProduto = $this->getDadosFromBancoDados();
-        // pegar do banco de dados
-
-
         foreach ($aListaProduto as $oProduto) {
-
             $precoFormatado = $this->formataNumero($oProduto->preco);
             $oProduto->preco = $precoFormatado;
-
             $html .= $this->getProduto($oProduto->codigo, $oProduto->descricao, $oProduto->preco, $imagem = false);
         }
 
         $html .= '        </div>';
         $html .= '    </div>';
         $html .= '</div>';
-        
         $html .= $this->getScriptProdutos();
-        
         return $html;
     }
 
-    function getDadosFromBancoDados(){
+    protected function getDadosFromBancoDados(){
         /** @var PDO $pdo */
         $pdo = getConexaoVenda();
-        
+
         $query = "SELECT produto_id as codigo,
                          descricao,
                          estoque,
                          precocusto,
-                         printf(\"%.2f\",precovenda) as preco
+                         printf(\"%.2f\", precovenda) as preco
                     FROM `produto`";
-        
+
         $stmt = $pdo->prepare($query);
-        
+
         $stmt->execute();
         $aDados = array();
         while($aDadosColuna = $stmt->fetchObject()){
             $aDados[] = $aDadosColuna;
         }
-        
+
         return $aDados;
     }
-    
-    protected function getDadosProdutoBancoDados($codigoProduto) {
-        $oProdutoBancoDados = $this->getDadosProduto($codigoProduto);
-        
-        $oProduto = new stdClass();
-        $oProduto->codigo = $codigoProduto;
-        $oProduto->descricao = $oProdutoBancoDados->descricao;
-
-        $precoFormatado = $this->formataNumero($oProdutoBancoDados->precovenda);
-
-        $oProduto->preco = $precoFormatado;
-        
-        return $oProduto;
-    }
-
-    
 
     protected function getDadosProduto($produto_id){
         /** @var PDO $pdo */

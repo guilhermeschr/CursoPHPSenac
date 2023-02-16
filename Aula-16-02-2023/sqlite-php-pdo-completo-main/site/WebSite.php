@@ -7,6 +7,10 @@ class WebSite extends WebSitePadrao {
         return "principal";
     }
 
+    protected function getDadosPaginaAtual(){
+        return "<h1>Pagina Principal Site</h1>";
+    }
+
 }
 
 new WebSite();

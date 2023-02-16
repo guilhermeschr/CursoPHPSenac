@@ -1,18 +1,21 @@
-## Aulas
+## Listar os produtos direto do banco de dados 
+     * ok  
+## Adicionar ao carrinho de compras
 
-##15-02-2022
-### Passar para alunos o projeto novo 
-### Terminar de adicionar Orientacao a Objetos da classe "ManutencaoContato" e ManutencaoCliente
-### Passar para alunos tentar adicionar orientacao a objetos na classe produto
-### Passar para alunos tentar adicionar orientacao a objetos na classe venda
-### Desenvolvimento de Relatorios com filtros- criar uma classe RelatorioPadrao
-* Criar sqls de consultas com e sem filtros para as seguintes telas
-  * Clientes
-  * Contatos
-  * Produtos
-  * Vendas
+Existe um carrinho de compras em aberto no dia?
 
-##16-02-2022 e 17-02-2022
-## Finalizar Sistema com Relatorios
-## Adicionar tela de login
-## Adicionar validacao de entrada ao sistema atraves de Session em PHP com os dados do usuario da tela login
+  * Sim => Adiciona o produto no carrinho de compras atual
+    * Existe o produto atual no carrinho?
+      * Sim -> Adiciona 1 na quantidade
+      * Nao -> Criar um novo item no carrinho e adiciona 1 na quantidade.
+  * Nao => Cria um novo carrinho de compras com status aberto para a data de hoje.
+
+Finalizar Venda -> 
+  * Escolher a Forma de Pagamento(DINHEIRO, PIX, CARTAO, BOLETO)
+  * Finalizar a Venda(Calcular o total da venda)
+
+
+# Sistema de Vendas
+  * Criar um modal com os produtos da venda(Detalhes ou Produtos)
+
+

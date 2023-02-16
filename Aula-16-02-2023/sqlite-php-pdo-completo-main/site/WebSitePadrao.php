@@ -24,10 +24,16 @@ class WebSitePadrao {
                 $oVenda = new Venda();
                 
                 // Processa a venda
-                if($oVenda->processaDados()){
-                    echo json_encode(array("status" => true, "mensagem" => "Venda realizada com sucesso!"));
+//                if($oVenda->processaDados()){
+//                    echo json_encode(array("status" => true, "mensagem" => "Venda realizada com sucesso!"));
+//                } else {
+//                    echo json_encode(array("status" => false, "mensagem" => "Erro ao realizar venda!Contate o suporte!"));
+//                }
+
+                if($oVenda->adicionaItemCarrinho()){
+                    echo json_encode(array("status" => true, "mensagem" => "Item adicionado com sucesso!"));
                 } else {
-                    echo json_encode(array("status" => false, "mensagem" => "Erro ao realizar venda!Contate o suporte!"));
+                    echo json_encode(array("status" => false, "mensagem" => "Erro ao adicionar item na venda!Contate o suporte!"));
                 }
                 
                 return true;
@@ -158,7 +164,7 @@ class WebSitePadrao {
         return '';
     }
 
-        protected function formataNumero($numero){
+    protected function formataNumero($numero){
         $numero = number_format($numero, 2);
 
         //$numero = str_replace(",", ".", $numero);
@@ -166,4 +172,3 @@ class WebSitePadrao {
         return $numero;
     }
 }
-
