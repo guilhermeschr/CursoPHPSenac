@@ -30,7 +30,7 @@ function getDadosItemVendaFromBancoDados(){
     $pdo = getConexao();
 
     $query = "SELECT *
-                FROM `itemvenda`";
+                FROM `itemvenda` order by 1 desc";
 
     $stmt = $pdo->prepare($query);
 

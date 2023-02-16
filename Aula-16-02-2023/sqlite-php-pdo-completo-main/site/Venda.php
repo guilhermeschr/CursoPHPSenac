@@ -27,15 +27,12 @@ class Venda {
 
                 $stmt = $this->setParam($stmt, $registro);
 
-                $oDados = false;
-                if($status = $stmt->execute()){
-                    $oDados = $stmt->fetchObject();
-                }
+                $status = $stmt->execute();
 
                 $stmt = null;
                 $pdo = null;
                 
-                return $oDados;
+                return $status;
             }
         }
         
@@ -91,21 +88,27 @@ class Venda {
         //  * Nao => Cria um novo carrinho de compras com status aberto para a data de hoje.
 
         $cliente = isset($_POST["cliente"]) ? (int)$_POST["cliente"] : 0;
+
+
         if($cliente > 0){
 
             // Pega o id da venda com status=STATUS_VENDA_INICIADA
-            $venda_id = $this->getVendaIniciada($cliente, "STATUS_VENDA_INICIADA");
+            $oVenda = $this->getVendaIniciada($cliente, "STATUS_VENDA_INICIADA");
+
+            $venda_id = (int)$oVenda->venda_id;
 
             // Se nao existir uma venda, cria uma venda com o produto ja adicionado
-            if((int)$venda_id == 0){
-                if($oVendaIniciada = $this->insereNovaVenda()){
-                    $this->atualizaStatusVenda($oVendaIniciada->venda_id);
+            if($venda_id == 0){
+                $this->insereNovaVenda();
 
-                    $this->adicionaItemVendaAtual($oVendaIniciada->venda_id);
-                }
-            } else {
-                $this->adicionaItemVendaAtual($venda_id);
+                $oVenda = $this->getVendaIniciada($cliente, "STATUS_VENDA_INICIADA");
+
+                $venda_id = (int)$oVenda->venda_id;
+
+                $this->atualizaStatusVenda($venda_id);
             }
+
+            return $this->adicionaItemVendaAtual($venda_id);
         }
 
         return false;
@@ -115,14 +118,18 @@ class Venda {
         if($status){
             $query = "  SELECT venda.venda_id 
                           FROM venda 
-                     LEFT JOIN statuspedidovenda ON(statuspedidovenda.status_venda_id = venda.venda_id)
+                     LEFT JOIN statuspedidovenda ON (statuspedidovenda.status_venda_id = venda.venda_id)
                          WHERE cliente_id = $cliente
                            AND statuspedidovenda.status = '$status'";
         } else {
             $query = "  SELECT venda.venda_id 
                           FROM venda
-                      ORDER BY venda.venda_id DESC limit 1";
+                      ORDER BY venda_id DESC limit 1";
         }
+
+        $query = "  SELECT venda.venda_id 
+                          FROM venda
+                      ORDER BY venda_id DESC limit 1";
 
         /** @var PDO $pdo */
         $pdo = getConexaoVenda();
@@ -192,11 +199,13 @@ class Venda {
         } else {
             $stmt = $pdo->prepare($query);
 
-            $stmt->bindParam(':venda_id', $venda_id);
-            $stmt->bindParam(':produto_id', $produto_id);
-            $stmt->bindParam(':quantidade', $quantidade);
-            $stmt->bindParam(':preco_custo', $preco_custo);
-            $stmt->bindParam(':preco_venda', $preco_venda);
+            if($oProduto = $this->getDadosProduto($produto_id)){
+                $stmt->bindParam(':venda_id', $venda_id);
+                $stmt->bindParam(':produto_id', $produto_id);
+                $stmt->bindParam(':quantidade', $quantidade);
+                $stmt->bindParam(':preco_custo', $oProduto->precocusto);
+                $stmt->bindParam(':preco_venda', $oProduto->precovenda);
+            }
         }
 
         $status = $stmt->execute();
@@ -224,4 +233,5 @@ class Venda {
 
         return $oDados;
     }
+
 }
