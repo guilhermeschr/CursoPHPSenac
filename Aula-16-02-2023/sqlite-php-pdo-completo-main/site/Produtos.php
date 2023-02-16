@@ -126,7 +126,7 @@ class Produtos extends WebSitePadrao {
                             </div>
                         </div>
                         <div class="price">
-                            <span class="price_num">R$ ' . $preco . ',00</span>
+                            <span class="price_num">R$ ' . $preco . '</span>
                             <span class="price_letter">Nine dollar only</span>
                         </div>
                     </div>

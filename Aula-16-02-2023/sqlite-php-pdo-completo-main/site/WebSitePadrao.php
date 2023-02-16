@@ -157,4 +157,9 @@ class WebSitePadrao {
         // return '<script src="../js/main.js" defer></script>';
         return '';
     }
+
+    protected function formataNumero($numero){
+        $numero = str_replace(".",",",$numero);
+        return $numero;
+    }
 }
