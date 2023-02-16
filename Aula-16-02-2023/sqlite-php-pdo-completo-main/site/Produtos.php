@@ -37,14 +37,16 @@ class Produtos extends WebSitePadrao {
         // usar caroussel para mudar lista de produto por linha em bootstrapp
         // https://getbootstrap.com.br/docs/4.1/components/carousel/
         
-        $aListaProduto = array(1,2,3,4);
+        // $aListaProduto = array(1,2,3,4);
         
         $aListaProduto = $this->getDadosFromBancoDados();
         // pegar do banco de dados
 
 
         foreach ($aListaProduto as $oProduto) {
-            $oProduto = $this->getDadosProdutoBancoDados($oProduto);
+
+            $precoFormatado = $this->formataNumero($oProduto->preco);
+            $oProduto->preco = $precoFormatado;
 
             $html .= $this->getProduto($oProduto->codigo, $oProduto->descricao, $oProduto->preco, $imagem = false);
         }
@@ -56,6 +58,28 @@ class Produtos extends WebSitePadrao {
         $html .= $this->getScriptProdutos();
         
         return $html;
+    }
+
+    function getDadosFromBancoDados(){
+        /** @var PDO $pdo */
+        $pdo = getConexaoVenda();
+        
+        $query = "SELECT produto_id as codigo,
+                         descricao,
+                         estoque,
+                         precocusto,
+                         printf(\"%.2f\",precovenda) as preco
+                    FROM `produto`";
+        
+        $stmt = $pdo->prepare($query);
+        
+        $stmt->execute();
+        $aDados = array();
+        while($aDadosColuna = $stmt->fetchObject()){
+            $aDados[] = $aDadosColuna;
+        }
+        
+        return $aDados;
     }
     
     protected function getDadosProdutoBancoDados($codigoProduto) {
@@ -72,27 +96,6 @@ class Produtos extends WebSitePadrao {
         return $oProduto;
     }
 
-    function getDadosFromBancoDados(){
-        /** @var PDO $pdo */
-        $pdo = getConexaoVenda();
-        
-        $query = "SELECT produto_id as id,
-                         descricao,
-                         estoque,
-                         precocusto,
-                         precovenda
-                    FROM `produto`";
-        
-        $stmt = $pdo->prepare($query);
-        
-        $stmt->execute();
-        $aDados = array();
-        while($aDadosColuna = $stmt->fetchObject()){
-            $aDados[] = $aDadosColuna;
-        }
-        
-        return $aDados;
-    }
     
 
     protected function getDadosProduto($produto_id){
