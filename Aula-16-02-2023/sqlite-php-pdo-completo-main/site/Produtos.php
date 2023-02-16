@@ -2,7 +2,7 @@
 
 require_once ("WebSitePadrao.php");
 class Produtos extends WebSitePadrao {
-    
+
     protected function getNomePagina(){
         return "produto";
     }
@@ -10,7 +10,7 @@ class Produtos extends WebSitePadrao {
     protected function getDadosPaginaAtual() {
         return $this->getListaProduto();
     }
-    
+
     protected function getStyleHeader(){
         return "style=\"position: absolute;top:0; width:95%;\"";
     }
@@ -39,9 +39,13 @@ class Produtos extends WebSitePadrao {
         
         $aListaProduto = array(1,2,3,4);
         $aListaProduto = array(1,2,3,4,5,6,8);
-        
+
+        // pegar do banco de dados
+
+
         foreach ($aListaProduto as $codigoProduto) {
             $oProduto = $this->getDadosProdutoBancoDados($codigoProduto);
+
             $html .= $this->getProduto($oProduto->codigo, $oProduto->descricao, $oProduto->preco, $imagem = false);
         }
 
@@ -55,28 +59,26 @@ class Produtos extends WebSitePadrao {
     }
     
     protected function getDadosProdutoBancoDados($codigoProduto) {
-        
         $oProdutoBancoDados = $this->getDadosProduto($codigoProduto);
         
         $oProduto = new stdClass();
         $oProduto->codigo = $codigoProduto;
-        
-        ///$oProduto->descricao = "ADDIDAS GAZE ZX $codigoProduto";
-        
         $oProduto->descricao = $oProdutoBancoDados->descricao;
-        
-        
-        $oProduto->preco = $oProdutoBancoDados->precovenda;
+
+        $precoFormatado = $this->formataNumero($oProdutoBancoDados->precovenda);
+
+        $oProduto->preco = $precoFormatado;
         
         return $oProduto;
     }
-    
-    
+
     protected function getDadosProduto($produto_id){
         /** @var PDO $pdo */
         $pdo = getConexaoVenda();
         
-        $query = "select * from `produto` WHERE produto_id = $produto_id";
+        $query = "select 
+                    printf(\"%.2f\", precovenda) as precovenda, 
+                    descricao from `produto` WHERE produto_id = $produto_id";
         
         $stmt = $pdo->prepare($query);
         

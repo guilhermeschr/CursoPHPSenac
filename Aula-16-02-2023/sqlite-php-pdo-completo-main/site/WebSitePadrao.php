@@ -158,9 +158,12 @@ class WebSitePadrao {
         return '';
     }
 
-    protected function formataNumero($numero){
-        // $numero = number_format($numero, 3);
-        $numero = str_replace(".",",",$numero);
+        protected function formataNumero($numero){
+        $numero = number_format($numero, 2);
+
+        //$numero = str_replace(",", ".", $numero);
+
         return $numero;
     }
 }
+
