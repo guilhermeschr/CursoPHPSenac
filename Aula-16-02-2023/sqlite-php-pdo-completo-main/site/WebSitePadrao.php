@@ -159,6 +159,7 @@ class WebSitePadrao {
     }
 
     protected function formataNumero($numero){
+        // $numero = number_format($numero, 3);
         $numero = str_replace(".",",",$numero);
         return $numero;
     }
