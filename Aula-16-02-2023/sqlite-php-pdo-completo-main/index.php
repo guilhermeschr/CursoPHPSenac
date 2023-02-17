@@ -1,6 +1,6 @@
 <?php
 
-// require_once ("ConsultaCliente.php");
+//require_once ("ConsultaCliente.php");return;
 
 require_once ("conexao.php");
 function getDadosFromBancoDados(){
@@ -28,10 +28,18 @@ function getDadosFromBancoDados(){
 function getDadosItemVendaFromBancoDados(){
     /** @var PDO $pdo */
     $pdo = getConexao();
+    
+    //$query = "delete  FROM `venda`";
+    //$query = "delete  FROM `statuspedidovenda`";
 
-    $query = "SELECT *
-                FROM `itemvenda` order by 1 desc";
+    $query = "select *  FROM `venda`";
 
+    $query = "select *  FROM `itemvenda`";
+//    $query = "select *  FROM `statuspedidovenda`";
+
+    // $query = "drop table IF EXISTS `statuspedidovenda`";
+    
+    //$query = "delete FROM `itemvenda`";
     $stmt = $pdo->prepare($query);
 
     $stmt->execute();

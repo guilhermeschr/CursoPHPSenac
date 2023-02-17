@@ -159,7 +159,7 @@ abstract class ConsultaPadrao {
 
         return "<header class=\"header\">
                     <ul class=\"menu\">
-                        <li><a href='site/WebSite.php" . $usuario_logado . "'>Website</a></li>
+                        <li><a href='site/WebSite.php'>Website</a></li>
                         <li><a href='ConsultaCliente.php" . $usuario_logado . "'>Clientes</a></li>
                         <li><a href='ConsultaContato.php" . $usuario_logado . "'>Contatos</a></li>
                         <li><a href='consulta-produto-simples.php'>Produtos</a></li>

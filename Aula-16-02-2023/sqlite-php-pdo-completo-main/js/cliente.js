@@ -47,7 +47,6 @@ function loadAjaxConsulta(){
 
             const aDados = JSON.parse(response);
 
-
             clearTable();
 
             aDados.forEach(createRow);

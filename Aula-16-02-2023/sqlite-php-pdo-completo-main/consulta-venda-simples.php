@@ -17,6 +17,7 @@ $html = '<!DOCTYPE html>
     <link rel="stylesheet" href="css/modal.css">
     <link rel="stylesheet" href="css/header.css">
     <script src="js/jquery.min.js" defer></script>
+    <script src="js/itemvenda.js" defer></script>
 
     <title>VENDA</title>
 </head>
@@ -46,7 +47,7 @@ $html = '<!DOCTYPE html>
             <button type="button" class="button blue mobile" id="cadastrarVenda">Incluir</button>
             <button type="button" class="button red" id="limparDados">Limpar Dados</button>
         </section>
-        <table id="tableClient" class="records">
+        <table id="tableVenda" class="records">
             <caption><h1>Vendas</h1></caption>
             <thead>
                 <tr>
@@ -62,22 +63,72 @@ $html = '<!DOCTYPE html>
             </tbody>
         </table>
         <div class="modal" id="modal">
-                <div class="modal-content">
-                    <header class="modal-header">
-                        <h2>Nova Venda</h2>
-                        <span class="modal-close" id="modalClose">&#10006;</span>
-                    </header>
-                    <form id="form" class="modal-form">
-                        <input type="hidden" id="id" data-index="new" class="modal-field" placeholder="Id">
-                        <input type="text" id="cliente" class="modal-field" placeholder="Código do Cliente" required value="1">
-                        <input type="text" id="formapagamento" class="modal-field" placeholder="Estoque" required value="DINHEIRO">
-                        <input type="text" id="total" class="modal-field" placeholder="Total da Venda" required value="10,00">
-                    </form>
-                    <footer class="modal-footer">
-                        <button id="salvar" class="button green">Salvar</button>
-                        <button id="cancelar" class="button blue">Cancelar</button>
-                    </footer>
+            <div class="modal-content">
+                <header class="modal-header">
+                    <h2>Nova Venda</h2>
+                    <span class="modal-close" id="modalClose">&#10006;</span>
+                </header>
+                <form id="form" class="modal-form">
+                    <input type="hidden" id="venda_id" data-index="new" class="modal-field" placeholder="Id">
+                    <input type="text" id="cliente" class="modal-field" placeholder="Código do Cliente" required value="1">
+                    <input type="text" id="formapagamento" class="modal-field" placeholder="Estoque" required value="DINHEIRO">
+                    <input type="text" id="total" class="modal-field" placeholder="Total da Venda" required value="10,00">
+                </form>
+                <footer class="modal-footer">
+                    <button id="salvar" class="button green">Salvar</button>
+                    <button id="cancelar" class="button blue">Cancelar</button>
+                </footer>
+            </div>
+        </div>
+        <div class="modal" id="modal-produtos-venda">
+            <div class="modal-content">
+                <header class="modal-header">
+                    <h1>Produtos da Venda</h1>
+                    <span class="modal-close" id="modalCloseVenda">&#10006;</span>
+                </header>
+                <table id="tableDadosItemVenda" class="records">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Preço Custo</th>
+                            <th>Preço Venda</th>
+                            <th>Lucro Liquido</th>
+                            <th>Total</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <footer class="modal-footer" id="modal-footer">
+                    <button id="cancelarItemVenda" class="button blue">Fechar</button>
+                </footer>
+            </div>
+        </div>
+        <!--MENSAGEM DE CONFIRMACAO - MODAL-->
+        <style>
+            #conteudo-mensagem {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+        </style>
+        <div class="modal" id="modal-confirmacao">
+            <div class="modal-content">
+                <header class="modal-header">
+                    <h1>Produtos da Venda</h1>
+                    <span class="modal-close" id="modalCloseConfirmacao">&#10006;</span>
+                </header>
+                <div id="conteudo-mensagem">
+                    <span id="mensagem">MODAL DE CONFIRMACAO!</span>
                 </div>
+                <footer class="modal-footer" id="modal-footer">
+                    <button id="confirmaModalConfirmacao" class="button blue">Confirmar</button>
+                    <button id="fecharModalConfirmacao" class="button red">Cancelar</button>
+                </footer>
+            </div>
         </div>
     </main>
     <footer>

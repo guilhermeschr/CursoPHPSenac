@@ -19,9 +19,22 @@ function loadAjaxUpdateRegistro(){
         incluir($registro);
     } else if($acao == "EXCLUSAO"){
         excluir($registro);
+    } else if($acao == "DETALHAR_VENDA"){
+        $venda_id = $registro["venda_id"];
+        detalharVenda($venda_id);
+    }  else if($acao == "EXECUTA_EXCLUSAO_ITEM_VENDA"){
+        $itemvenda_id = $registro["itemvenda_id"];
+        excluirItemVenda($itemvenda_id, true);
     } else {
         echo json_encode("Ação invalida!");
     }
+}
+
+function detalharVenda($venda_id){
+    
+    $aDados = getDadosItemFromBancoDados($venda_id);
+    
+    echo json_encode($aDados);
 }
 
 function getPdoConnection(){
@@ -38,9 +51,32 @@ function excluir($registro){
     
     $stmt = $pdo->prepare($query);
     
-    $stmt->bindParam(':venda_id', $registro["id"], PDO::PARAM_INT);
+    $stmt->bindParam(':venda_id', $registro["venda_id"], PDO::PARAM_INT);
     
     $stmt->execute();
+    
+    // Exclui todos os item da venda tambem
+    $aDadosItem = getDadosItemFromBancoDados($registro["venda_id"]);
+    foreach ($aDadosItem as $Item){
+        excluirItemVenda($Item->itemvenda_id, false, $Item->venda_id);
+    }
+}
+
+function excluirItemVenda($itemvenda_id, $detalhaVenda = false, $venda_id = false){
+    /** @var PDO $pdo */
+    $pdo = getPdoConnection();
+    
+    $query = "DELETE FROM `itemvenda` WHERE `itemvenda_id` = :itemvenda_id";
+    
+    $stmt = $pdo->prepare($query);
+    
+    $stmt->bindParam(':itemvenda_id', $itemvenda_id, PDO::PARAM_INT);
+    
+    $stmt->execute();
+    
+    if($detalhaVenda){
+        detalharVenda($venda_id);
+    }
 }
 
 function incluir($registro){
@@ -86,11 +122,37 @@ function getDadosFromBancoDados(){
     /** @var PDO $pdo */
     $pdo = getPdoConnection();
     
-    $query = "SELECT venda_id as id,
+    $query = "SELECT venda_id,
                      cliente_id as cliente,
                      formapagamento,
                      total
                 FROM `venda`";
+    
+    $stmt = $pdo->prepare($query);
+    
+    $stmt->execute();
+    $aDados = array();
+    while($aDadosColuna = $stmt->fetchObject()){
+        $aDados[] = $aDadosColuna;
+    }
+    
+    return $aDados;
+}
+
+function getDadosItemFromBancoDados($venda_id){
+    /** @var PDO $pdo */
+    $pdo = getPdoConnection();
+    
+    $query = " SELECT itemvenda.itemvenda_id,
+                      itemvenda.venda_id,
+                      itemvenda.produto_id,
+                      produto.descricao as produto,
+                      itemvenda.quantidade,
+                      itemvenda.preco_custo,
+                      itemvenda.preco_venda
+                FROM `itemvenda`
+          INNER JOIN produto ON (produto.produto_id = itemvenda.produto_id)
+               WHERE venda_id=$venda_id";
     
     $stmt = $pdo->prepare($query);
     

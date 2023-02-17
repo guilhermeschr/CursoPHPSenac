@@ -24,7 +24,7 @@ $html = '<!DOCTYPE html>
 <body>
     <header class="header">
         <ul class="menu">
-            <li><a href=\'Home.php\'>Home</a></li>
+            <li><a href=\'site/WebSite.php\'>Website</a></li>
             <li><a href=\'ConsultaCliente.php\'>Clientes</a></li>
             <li><a href=\'ConsultaContato.php\'>Contatos</a></li>
             <li><a href=\'consulta-produto-simples.php\'>Produtos</a></li>
@@ -36,6 +36,7 @@ $html = '<!DOCTYPE html>
                     <li>Relatorios</li>
                 </ul>
             </li> -->
+            <li><a href=\'login.php\'>Sair</a></li>
         </ul>
     </header>
     <header>

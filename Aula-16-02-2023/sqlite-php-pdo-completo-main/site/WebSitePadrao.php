@@ -99,6 +99,11 @@ class WebSitePadrao {
         return 'style="position: fixed;top:0;"';
     }
     
+    protected function getDadosUsuario(){
+        return "<li style='display: none;'><a href='EntrarWebSite.php'>Entrar</a></li>
+                <li style='display: none;'><a href='Cadastrar.php'>Cadastrar</a></li>";
+    }
+    
     protected function getHeaders(){
         return "<header class=\"header\" " . $this->getStyleHeader() . ">
                     <style>
@@ -115,8 +120,7 @@ class WebSitePadrao {
                         <li><a href='Produtos.php'>Produtos</a></li>
                         <li><a href='Servicos.php'>Serviços</a></li>
                         <li><a href='Categorias.php'>Categorias</a></li>
-                        <li><a href='EntrarWebSite.php'>Entrar</a></li>
-                        <li><a href='Cadastrar.php'>Cadastrar</a></li>
+                        " . $this->getDadosUsuario() . "
                         <div class=\"dados-usuario\">
                             <span class=\"usuario-login\"
                             id=\"usuario-nome\">Usuario:1 - Gelvazio Camargo</span>
